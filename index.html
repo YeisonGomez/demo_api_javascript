@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo</title>
+</head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<body>
+    <div class="jumbotron" style="text-align: center;">
+        <h1>Chairá api</h1>
+        <p>Iniciar sesión con tu usuario Chairá para obtener tu información de forma segura</p>
+        <p>
+            <a class="btn btn-success btn-lg" href="http://chaira.udla.edu.co/api/v0.1/oauth2/authorize.asmx/auth?response_type=code&client_id=919207462918&redirect_uri=http://localhost:3000&state=xyz" role="button">
+        	Iniciar Sesión con Chairá
+        </a>
+        </p>
+    </div>
+    <div id="error"></div>
+    <div id="information" style="width:60%; margin-left:25%; display:none;">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">Información</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="media-list">
+                    <li class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img id="avatar" class="media-object" src="">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 id="nombres" class="media-heading"> </h4>
+                            <strong>Correo insitucional:</strong><span id="correo"></span>
+                            <br />
+                            <strong>Genero: </strong><span id="genero"></span>
+                            <br />
+                            <strong>Tipo de sangre: </strong><span id="rh"></span>
+                            <br />
+                            <strong>Departamento: </strong><span id="departamento"></span>
+                            <br />
+                            <strong>Minicipio: </strong><span id="municipio"></span>
+                            <br />
+                            <strong>Rol en la universidad: </strong><span id="rol"></span>
+                            <br />
+                            <strong>Estado en Chairá: </strong><span id="estado"></span>
+                            <br />
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="most_information" style="width:60%; margin-left:25%; display:none;">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Dropdown
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                <ul class="media-list">
+                    <li class="media">
+                        <div class="media-body">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="util.js"></script>
+    <script src="request.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
