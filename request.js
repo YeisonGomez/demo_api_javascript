@@ -1,3 +1,5 @@
+var api_url = "http://chaira.udla.edu.co/api/v0.1";
+
 function requestAccessToken(code, callback) {
     var http = new XMLHttpRequest();
     var params = {
@@ -9,7 +11,7 @@ function requestAccessToken(code, callback) {
         state: "xyz"
     };
 
-    http.open('POST', 'http://chaira.udla.edu.co/api/v0.1/oauth2/authorize.asmx/token', true);
+    http.open('POST', api_url + '/oauth2/authorize.asmx/token', true);
     http.setRequestHeader("Content-type", "application/json");
     http.send(JSON.stringify(params));
 
@@ -20,9 +22,9 @@ function requestAccessToken(code, callback) {
                 if (res.state == "xyz") {
                     callback(res);
                 } else if (res.type == "invalid_grant") {
-                    if(localStorage.getItem("token") != null){
+                    if (localStorage.getItem("token") != null) {
                         callback("token_exist");
-                    }else{
+                    } else {
                         getError('El codigo es invalido.');
                     }
                 }
@@ -38,7 +40,7 @@ function requestResource(scope, callback) {
         scope: scope
     };
 
-    http.open('POST', 'http://chaira.udla.edu.co/api/v0.1/oauth2/resource.asmx/scope', true);
+    http.open('POST', api_url + '/oauth2/resource.asmx/scope', true);
     http.setRequestHeader("Content-type", "application/json");
     http.send(JSON.stringify(params));
 
@@ -48,10 +50,32 @@ function requestResource(scope, callback) {
                 var res = JSON.parse(this.response.replace('{"d":null}', ''));
                 if (res.state == "OK") {
                     callback(res);
-                }else if(res.type == "invalid_scope"){
+                } else if (res.type == "invalid_scope") {
                     getErrorInformation("La aplicación no tiene permisos necesarios para esta información.");
-                }else {
+                } else {
                     getErrorInformation(res.description);
+                }
+            }
+        }
+    };
+}
+
+function requestLogout(callback) {
+    var http = new XMLHttpRequest();
+    var params = {
+        access_token: localStorage.getItem("token")
+    };
+
+    http.open('POST', api_url + '/oauth2/resource.asmx/logout', true);
+    http.setRequestHeader("Content-type", "application/json");
+    http.send(JSON.stringify(params));
+
+    http.onreadystatechange = function(e) {
+        if (http.readyState == 4) {
+            if (http.status == 200) {
+                var res = JSON.parse(this.response.replace('{"d":null}', ''));
+                if (res.state == "OK") {
+                    callback(res);
                 }
             }
         }

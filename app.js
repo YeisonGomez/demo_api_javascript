@@ -37,3 +37,12 @@ function getScope() {
         }
     });
 }
+
+function logout(){
+    requestLogout(function(data){
+        localStorage.clear();
+        clearElements("information");
+        clearElements("most_information");
+        getError('El usuario ha cerrado sesión.');
+    });
+}

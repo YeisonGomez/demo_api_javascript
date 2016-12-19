@@ -56,3 +56,7 @@ function getInformation(data) {
     }
     document.getElementById("information-body").innerHTML = information;   
 }
+
+function clearElements(id){
+    document.getElementById(id).style.display = 'none';
+}
