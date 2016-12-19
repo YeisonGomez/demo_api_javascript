@@ -28,7 +28,7 @@
                 <ul class="media-list">
                     <li class="media">
                         <div class="media-left">
-                            <a href="#">
+                            <a>
                                 <img id="avatar" class="media-object" src="">
                             </a>
                         </div>
@@ -57,24 +57,20 @@
     <div id="most_information" style="width:60%; margin-left:25%; display:none;">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Dropdown
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
-                </div>
+                <select id="scopes" class="btn btn-default dropdown-toggle">
+                    <option value="public_profile" selected>public_profile</option>
+                    <option value="student_academic_information">student_academic_information</option>
+                    <option value="schedule">schedule</option>
+                    <option value="schedule_professor">schedule_professor</option>
+                </select>
+                <button type="button" class="btn btn-default" aria-label="Search" onclick="getScope()">
+                	<span class="glyphicon glyphicon glyphicon-zoom-in"></span>
+                </button>
             </div>
             <div class="panel-body">
                 <ul class="media-list">
                     <li class="media">
-                        <div class="media-body">
+                        <div id="information-body" class="media-body">
                         </div>
                     </li>
                 </ul>

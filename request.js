@@ -20,14 +20,18 @@ function requestAccessToken(code, callback) {
                 if (res.state == "xyz") {
                     callback(res);
                 } else if (res.type == "invalid_grant") {
-                    getError('El codigo es invalido.');
+                    if(localStorage.getItem("token") != null){
+                        callback("token_exist");
+                    }else{
+                        getError('El codigo es invalido.');
+                    }
                 }
             }
         }
     };
 }
 
-function requestResource(scope) {
+function requestResource(scope, callback) {
     var http = new XMLHttpRequest();
     var params = {
         access_token: localStorage.getItem("token"),
@@ -44,6 +48,10 @@ function requestResource(scope) {
                 var res = JSON.parse(this.response.replace('{"d":null}', ''));
                 if (res.state == "OK") {
                     callback(res);
+                }else if(res.type == "invalid_scope"){
+                    getErrorInformation("La aplicación no tiene permisos necesarios para esta información.");
+                }else {
+                    getErrorInformation(res.description);
                 }
             }
         }

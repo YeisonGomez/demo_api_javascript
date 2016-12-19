@@ -3,17 +3,37 @@ var code = getParameterByName("code"),
 
 if (code != null) {
 
-	requestAccessToken(code, function(data){
-		localStorage.setItem("token", data.access_token);
-		localStorage.setItem("refresh", data.refresh_token);
-		var user = JSON.parse(data.scope);
-		for (var i = 1; i < user.length; i++) {
-			user[0].ROL += ', ' + user[i].ROL;
-		}
-		getUser(user[0]);
-	});
+    requestAccessToken(code, function(data) {
+        if (data != "token_exist") {
+            localStorage.setItem("token", data.access_token);
+            localStorage.setItem("refresh", data.refresh_token);
+            var user = JSON.parse(data.scope);
+            for (var i = 1; i < user.length; i++) {
+                user[0].ROL += ', ' + user[i].ROL;
+            }
+            getUser(user[0]);
+        } else {
+            requestResource("public_profile", function(data) {
+                var user = JSON.parse(data.description);
+                for (var i = 1; i < user.length; i++) {
+                    user[0].ROL += ', ' + user[i].ROL;
+                }
+                getUser(user[0]);
+            });
+        }
 
+    });
 } else if (error != null && error == "access_denied") {
+    getError('El usuario a rechazado los permisos solicitados por la aplicación.');
+}
 
-    getError('El usuario a rechazado los permisos solicitados por la aplicaciòn.');
+function getScope() {
+    requestResource(document.getElementById("scopes").value, function(data) {
+        data = JSON.parse(data.description);
+        if (data.length > 0) {
+            getInformation(data);
+        } else {
+            getErrorInformation("El usuario no cuenta con esta información.");
+        }
+    });
 }
